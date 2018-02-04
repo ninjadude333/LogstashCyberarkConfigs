@@ -1,0 +1,23 @@
+# DCA Logs
+DCA_COPYFROMTO .+?(?=\])
+DCA_RULE .+?(?=\])
+DCA_FILE \F.+?(?=\])
+DCA_MESSAGE .*
+DCA_SEPERATOR \s\|\s
+DCA_BETWEEN \s*\|\s*.+?(?=\|)
+
+"message" => "\[%{DATE:date}%{DCA_SEPERATOR}%{TIME:time}\]%{DCA_BETWEEN:fromto}%{DCA_BETWEEN:rule}%{DCA_BETWEEN:file}%{DCA_BETWEEN:colons}%{GREEDYDATA:msg}"
+
+\[%{DATE:date}%{DCA_SEPERATOR}%{TIME:time}\]%{DCA_BETWEEN:fromto}%{DCA_BETWEEN:rule}%{DCA_BETWEEN:file}%{DCA_BETWEEN:colons}%{GREEDYDATA:msg}
+
+
+grok for ITA LOG:
+%{DATESTAMP:date_and_time}\s%{WORD:action_code}\s%{GREEDYDATA:msg}
+
+grok for web logs
+DCA_PID .+?(?=\|)
+DCA_TID .+?(?=\|)
+
+
+
+\[%{DATE:date}%{DCA_SEPERATOR}%{TIME:time}\]%{DCA_SEPERATOR}%{DCA_PID:pid}%{DCA_SEPERATOR}%{DCA_TID:tid}%{DCA_BETWEEN:colon}%{DCA_SEPERATOR}%{DCA_MESSAGE:msg}
